@@ -1,5 +1,7 @@
 from fastapi import FastAPI
+from fastapi import Body
 
+from app.models import Wine
 
 app = FastAPI(
     title="Predict wine",
@@ -9,5 +11,6 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-
-
+@app.post("/predict")
+def predict_wine(wine: Wine = Body(...)):
+    return wine
