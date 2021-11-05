@@ -1,7 +1,11 @@
 from fastapi import FastAPI
 from fastapi import Body
+from fastapi import status
 
 from app.models import Wine
+from app.models import Response
+from app.usecase import Classifier
+
 
 app = FastAPI(
     title="Predict wine",
@@ -11,6 +15,12 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-@app.post("/predict")
+
+@app.post(
+    path="/predict",
+    status_code=status.HTTP_200_OK,
+    summary="Predict wine cultivation",
+    response_model=Response
+    )
 def predict_wine(wine: Wine = Body(...)):
-    return wine
+    return Classifier.predict(wine)

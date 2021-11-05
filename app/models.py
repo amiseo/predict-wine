@@ -83,3 +83,9 @@ class Wine(BaseModel):
         lt=5000,
         example=660.0
     )
+
+
+class Response(BaseModel):
+
+    wine_cultivation: float
+
